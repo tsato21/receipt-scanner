@@ -16,6 +16,7 @@ const period = ref('1m');
 const trendType = ref('daily'); // 'daily' or 'monthly'
 const startDate = ref<Date | null>(null);
 const endDate = ref<Date | null>(null);
+const is20thClosing = ref(false);
 const totalSpending = ref(0);
 
 const periodOptions = [
@@ -45,6 +46,8 @@ const fetchData = async () => {
         let url = `/api/receipts?period=${period.value}`;
         if (period.value === 'custom' && startDate.value && endDate.value) {
             url = `/api/receipts?startDate=${startDate.value.toISOString()}&endDate=${endDate.value.toISOString()}`;
+        } else if (['1m', '3m', '1y'].includes(period.value) && is20thClosing.value) {
+            url += `&closingDay=20`;
         }
         
         const [receiptsData, masterData] = await Promise.all([
@@ -205,6 +208,12 @@ const processCharts = (data: Receipt[], cats: Category[]) => {
             <h1 class="m-0 text-3xl font-bold text-900">ダッシュボード</h1>
             <div class="flex flex-wrap gap-3 align-items-center">
                 <SelectButton v-model="period" :options="periodOptions" optionLabel="label" optionValue="value" :allowEmpty="false" />
+                
+                <div v-if="['1m', '3m', '1y'].includes(period)" class="flex align-items-center">
+                    <Checkbox v-model="is20thClosing" :binary="true" inputId="closing20" @change="fetchData" />
+                    <label for="closing20" class="ml-2 text-sm cursor-pointer select-none">20日締め</label>
+                </div>
+
                 <div v-if="period === 'custom'" class="flex align-items-center gap-2">
                     <DatePicker v-model="startDate" placeholder="開始日" showIcon dateFormat="yy-mm-dd" :maxDate="endDate || undefined" />
                     <span>〜</span>
