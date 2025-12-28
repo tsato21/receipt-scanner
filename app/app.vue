@@ -13,6 +13,11 @@ const items = ref([
         route: '/dashboard'
     },
     {
+        label: '利用明細',
+        icon: 'pi pi-list',
+        route: '/statements'
+    },
+    {
         label: '通知設定',
         icon: 'pi pi-bell',
         route: '/notifications'

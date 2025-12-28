@@ -62,3 +62,39 @@ export interface NotificationLog {
   targetItems: string[];
   message?: string;
 }
+
+export interface StatementFormat {
+  id?: string;
+  userId: string;
+  name: string;
+  headerSignature: string; // Comma separated header string
+  columnMapping: {
+    dateColumn: string;
+    amountColumn: string;
+    descColumn: string;
+  };
+}
+
+export interface StatementItem {
+  date: string; // YYYY-MM-DD
+  description: string;
+  amount: number;
+  status: 'matched' | 'unmatched';
+  matchedReceiptId?: string;
+}
+
+export interface Statement {
+  id?: string;
+  userId: string;
+  formatId: string;
+  title: string;
+  rangeStart: Date;
+  rangeEnd: Date;
+  summary: {
+    totalAmount: number;
+    matchedAmount: number;
+    unmatchedAmount: number;
+  };
+  items: StatementItem[];
+  createdAt: Date;
+}

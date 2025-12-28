@@ -25,3 +25,13 @@ export const COLLECTION_STORES = `${ENV_PREFIX}stores`;
 export const COLLECTION_CATEGORIES = `${ENV_PREFIX}categories`;
 export const COLLECTION_REMINDERS = `${ENV_PREFIX}reminders`;
 export const COLLECTION_NOTIFICATION_LOGS = `${ENV_PREFIX}notification_logs`;
+export const COLLECTION_STATEMENTS = `${ENV_PREFIX}statements`;
+export const COLLECTION_STATEMENT_FORMATS = `${ENV_PREFIX}statement_formats`;
+
+export const toJsDate = (val: any): Date => {
+  if (!val) return new Date();
+  if (val instanceof Date) return val;
+  if (typeof val.toDate === 'function') return val.toDate();
+  if (typeof val === 'string' || typeof val === 'number') return new Date(val);
+  return new Date();
+};

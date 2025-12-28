@@ -82,3 +82,67 @@ resource "google_firestore_index" "staging_reminders_list_index" {
     order      = "DESCENDING"
   }
 }
+
+resource "google_firestore_index" "receipts_date_search_index" {
+  project    = local.project_id
+  database   = google_firestore_database.database.name
+  collection = "receipts"
+
+  fields {
+    field_path = "userId"
+    order      = "ASCENDING"
+  }
+
+  fields {
+    field_path = "date"
+    order      = "ASCENDING"
+  }
+}
+
+resource "google_firestore_index" "staging_receipts_date_search_index" {
+  project    = local.project_id
+  database   = google_firestore_database.database.name
+  collection = "staging_receipts"
+
+  fields {
+    field_path = "userId"
+    order      = "ASCENDING"
+  }
+
+  fields {
+    field_path = "date"
+    order      = "ASCENDING"
+  }
+}
+
+resource "google_firestore_index" "statements_list_index" {
+  project    = local.project_id
+  database   = google_firestore_database.database.name
+  collection = "statements"
+
+  fields {
+    field_path = "userId"
+    order      = "ASCENDING"
+  }
+
+  fields {
+    field_path = "createdAt"
+    order      = "DESCENDING"
+  }
+}
+
+resource "google_firestore_index" "staging_statements_list_index" {
+  project    = local.project_id
+  database   = google_firestore_database.database.name
+  collection = "staging_statements"
+
+  fields {
+    field_path = "userId"
+    order      = "ASCENDING"
+  }
+
+  fields {
+    field_path = "createdAt"
+    order      = "DESCENDING"
+  }
+}
