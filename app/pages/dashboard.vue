@@ -86,6 +86,21 @@ const registerReminder = (itemName: string) => {
     });
 };
 
+const deleteReceipt = async () => {
+    if (!selectedReceipt.value) return;
+    if (!confirm('本当にこのレシートを削除しますか？\n（復元はできません）')) return;
+
+    try {
+        await $fetch(`/api/receipts/${selectedReceipt.value.id}`, { method: 'DELETE' });
+        showDetailDialog.value = false;
+        selectedReceipt.value = null;
+        await fetchData(); // Refresh list and charts
+    } catch (e) {
+        console.error('Failed to delete receipt', e);
+        alert('削除に失敗しました');
+    }
+};
+
 const getCategoryName = (id: string) => {
     const cat = categories.value.find(c => c.id === id);
     return cat ? cat.name : '未分類';
@@ -333,6 +348,10 @@ const processCharts = (data: Receipt[], cats: Category[]) => {
                         <span class="text-700">{{ formatCurrency(item.price) }}</span>
                     </li>
                 </ul>
+            </div>
+            
+            <div class="flex justify-content-end mt-4">
+                <Button label="削除" icon="pi pi-trash" severity="danger" text @click="deleteReceipt" />
             </div>
         </div>
     </Dialog>
