@@ -18,6 +18,7 @@ const startDate = ref<Date | null>(null);
 const endDate = ref<Date | null>(null);
 const is20thClosing = ref(false);
 const totalSpending = ref(0);
+const periodOffset = ref(0); // 0 = Current, -1 = Prev, 1 = Next
 
 const periodOptions = [
     { label: '1ヶ月', value: '1m' },
@@ -27,10 +28,87 @@ const periodOptions = [
     { label: 'カスタム', value: 'custom' }
 ];
 
-const trendOptions = [
-    { label: '日別', value: 'daily' },
-    { label: '月別', value: 'monthly' }
-];
+const periodLabel = computed(() => {
+    if (!startDate.value || !endDate.value) return '';
+    return `${formatDate(startDate.value)} 〜 ${formatDate(endDate.value)}`;
+});
+
+const calculateRange = () => {
+    // Only calculate for navigation-supported periods
+    if (!['1m', '3m', '1y'].includes(period.value)) return null;
+
+    const now = new Date();
+    let start = new Date();
+    let end = new Date();
+
+    if (is20thClosing.value) {
+        // Accounting Period Logic (20th Closing)
+        // Determine "Current Accounting Month" start
+        // If today > 20, AccMonth starts 21st of This Month.
+        // If today <= 20, AccMonth started 21st of Last Month.
+        let baseYear = now.getFullYear();
+        let baseMonth = now.getMonth(); // 0-11
+        
+        if (now.getDate() <= 20) {
+            baseMonth -= 1;
+        }
+        
+        // Apply Offset
+        // 1m: Offset by 1 month
+        // 3m: Offset by 3 months
+        // 1y: Offset by 1 year
+        let monthsToAdd = 0;
+        if (period.value === '1m') monthsToAdd = 1;
+        if (period.value === '3m') monthsToAdd = 3;
+        if (period.value === '1y') monthsToAdd = 12;
+        
+        const targetMonthIndex = baseMonth + (periodOffset.value * monthsToAdd);
+        
+        // Start Date: 21st of target base month
+        start = new Date(baseYear, targetMonthIndex, 21);
+        
+        // End Date: 
+        // 1m: 20th of (start + 1 month)
+        // 3m: 20th of (start + 3 months)
+        // 1y: 20th of (start + 12 months)
+        end = new Date(start.getFullYear(), start.getMonth() + monthsToAdd, 20);
+        
+    } else {
+        // Standard Calendar Logic
+        // 1m: Calendar Month (1st - Last)
+        // 3m: 3 Calendar Months
+        // 1y: Calendar Year (Jan 1 - Dec 31)? Or 12 Months?
+        // Let's use "Months" logic relative to current month.
+        
+        let monthsToAdd = 0;
+        if (period.value === '1m') monthsToAdd = 1;
+        if (period.value === '3m') monthsToAdd = 3;
+        if (period.value === '1y') monthsToAdd = 12;
+
+        // Base: Start of current month
+        const baseStart = new Date(now.getFullYear(), now.getMonth(), 1);
+        
+        // Shift by offset
+        start = new Date(baseStart.getFullYear(), baseStart.getMonth() + (periodOffset.value * monthsToAdd), 1);
+        
+        // End: Start + Duration - 1 day (End of the range)
+        end = new Date(start.getFullYear(), start.getMonth() + monthsToAdd, 0);
+        
+        // Special case: If Offset 0 (Current) and we want to cap at Today? 
+        // Usually dashboard shows "up to now" for current period, but "full range" for navigation context is okay too.
+        // The backend `custom` range query handles explicit dates strictly.
+        // Let's strictly use the calculated range so "Next" doesn't show future data (it will be empty).
+        // But for UX, showing "Dec 1 - Dec 31" when today is Dec 28 is fine.
+        end.setHours(23, 59, 59, 999);
+    }
+    
+    return { start, end };
+};
+
+const changeOffset = (delta: number) => {
+    periodOffset.value += delta;
+    fetchData(); // fetchData will call calculateRange
+};
 
 const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(value);
@@ -44,11 +122,25 @@ const formatDate = (dateVal: string | Date) => {
 const fetchData = async () => {
     try {
         let url = `/api/receipts?period=${period.value}`;
-        if (period.value === 'custom' && startDate.value && endDate.value) {
-            url = `/api/receipts?startDate=${startDate.value.toISOString()}&endDate=${endDate.value.toISOString()}`;
-        } else if (['1m', '3m', '1y'].includes(period.value) && is20thClosing.value) {
-            url += `&closingDay=20`;
+        
+        // Determine Dates
+        if (period.value === 'custom') {
+            // Use manual pickers
+            if (startDate.value && endDate.value) {
+                url = `/api/receipts?startDate=${startDate.value.toISOString()}&endDate=${endDate.value.toISOString()}`;
+            }
+        } else if (['1m', '3m', '1y'].includes(period.value)) {
+            // Calculate explicit range with offset
+            const range = calculateRange();
+            if (range) {
+                startDate.value = range.start;
+                endDate.value = range.end;
+                url = `/api/receipts?startDate=${range.start.toISOString()}&endDate=${range.end.toISOString()}`;
+            }
         }
+        
+        // Note: is20thClosing is handled inside calculateRange now, so we don't need &closingDay query param
+        // because we are sending explicit start/end dates.
         
         const [receiptsData, masterData] = await Promise.all([
             $fetch<Receipt[]>(url),
@@ -69,10 +161,19 @@ const fetchData = async () => {
 
 onMounted(fetchData);
 
-watch([period, startDate, endDate, trendType], () => {
-    if (period.value !== 'custom' || (startDate.value && endDate.value)) {
-        fetchData();
-    }
+watch([period, trendType], () => {
+    if (period.value === 'custom') return; // Handled by date pickers
+    periodOffset.value = 0; // Reset offset on mode change
+    fetchData();
+});
+
+// Watch pickers for custom mode
+watch([startDate, endDate], () => {
+    if (period.value === 'custom') fetchData();
+});
+
+watch(is20thClosing, () => {
+    fetchData();
 });
 
 const viewDetails = (receipt: Receipt) => {
@@ -209,9 +310,15 @@ const processCharts = (data: Receipt[], cats: Category[]) => {
             <div class="flex flex-wrap gap-3 align-items-center">
                 <SelectButton v-model="period" :options="periodOptions" optionLabel="label" optionValue="value" :allowEmpty="false" />
                 
+                <div v-if="['1m', '3m', '1y'].includes(period)" class="flex align-items-center gap-2">
+                    <Button icon="pi pi-chevron-left" text rounded @click="changeOffset(-1)" />
+                    <span class="font-bold white-space-nowrap">{{ periodLabel }}</span>
+                    <Button icon="pi pi-chevron-right" text rounded @click="changeOffset(1)" :disabled="periodOffset === 0" />
+                </div>
+                
                 <div v-if="['1m', '3m', '1y'].includes(period)" class="flex align-items-center">
                     <Checkbox v-model="is20thClosing" :binary="true" inputId="closing20" @change="fetchData" />
-                    <label for="closing20" class="ml-2 text-sm cursor-pointer select-none">20日締め</label>
+                    <label for="closing20" class="ml-2 text-sm cursor-pointer select-none">クレカ用20日締め</label>
                 </div>
 
                 <div v-if="period === 'custom'" class="flex align-items-center gap-2">
