@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1"
+  tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1"
+  pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- GCP Project container -->
+    <mxCell id="gcp" value="GCP Project: receipt-scanner-app-481805 (us-central1)"
+      style="shape=mxgraph.gcp2.group;grIcon=mxgraph.gcp2.group_gcp_infrastructure;strokeColor=#4d90fe;fillColor=#e8f0fe;fontStyle=1;fontSize=13;verticalAlign=top;align=left;spacingLeft=44;spacingTop=5;"
+      vertex="1" parent="1">
+      <mxGeometry x="290" y="50" width="1100" height="890" as="geometry" />
+    </mxCell>
+
+    <!-- CI/CD Pipeline section -->
+    <mxCell id="cicd_box" value="CI / CD Pipeline"
+      style="rounded=1;dashed=1;strokeColor=#f0a30a;fillColor=#fff8e1;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=10;fontSize=11;fontStyle=1;fontColor=#5d4037;arcSize=3;"
+      vertex="1" parent="1">
+      <mxGeometry x="330" y="90" width="510" height="160" as="geometry" />
+    </mxCell>
+
+    <!-- Cloud Build -->
+    <mxCell id="cloudbuild" value="Cloud Build"
+      style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#4285F4;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=4;shape=mxgraph.gcp2.cloud_build;"
+      vertex="1" parent="1">
+      <mxGeometry x="375" y="115" width="60" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Artifact Registry -->
+    <mxCell id="artifact_registry" value="Artifact Registry"
+      style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#4285F4;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=4;shape=mxgraph.gcp2.artifact_registry;"
+      vertex="1" parent="1">
+      <mxGeometry x="635" y="115" width="60" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Application Layer section -->
+    <mxCell id="app_box" value="Application Layer"
+      style="rounded=1;dashed=1;strokeColor=#1565c0;fillColor=#e3f2fd;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=10;fontSize=11;fontStyle=1;fontColor=#0d47a1;arcSize=3;"
+      vertex="1" parent="1">
+      <mxGeometry x="330" y="290" width="510" height="420" as="geometry" />
+    </mxCell>
+
+    <!-- Cloud Scheduler -->
+    <mxCell id="scheduler" value="Cloud Scheduler&#xa;(毎日 9:00 JST)"
+      style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#4285F4;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=4;shape=mxgraph.gcp2.cloud_scheduler;"
+      vertex="1" parent="1">
+      <mxGeometry x="370" y="420" width="60" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Cloud Run (main) -->
+    <mxCell id="cloudrun" value="Cloud Run&#xa;(Nuxt 4 SSR)"
+      style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#4285F4;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=12;fontStyle=1;aspect=fixed;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=4;shape=mxgraph.gcp2.cloud_run;"
+      vertex="1" parent="1">
+      <mxGeometry x="545" y="410" width="80" height="80" as="geometry" />
+    </mxCell>
+
+    <!-- Data Services section -->
+    <mxCell id="data_box" value="Data Services"
+      style="rounded=1;dashed=1;strokeColor=#388e3c;fillColor=#e8f5e9;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=10;fontSize=11;fontStyle=1;fontColor=#1b5e20;arcSize=3;"
+      vertex="1" parent="1">
+      <mxGeometry x="880" y="90" width="200" height="690" as="geometry" />
+    </mxCell>
+
+    <!-- Firestore -->
+    <mxCell id="firestore" value="Firestore&#xa;(Native mode)"
+      style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#4285F4;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=4;shape=mxgraph.gcp2.cloud_firestore;"
+      vertex="1" parent="1">
+      <mxGeometry x="950" y="130" width="60" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Vertex AI -->
+    <mxCell id="vertexai" value="Vertex AI&#xa;(Gemini 2.0 Flash)"
+      style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#4285F4;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=4;shape=mxgraph.gcp2.vertex_ai;"
+      vertex="1" parent="1">
+      <mxGeometry x="950" y="330" width="60" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Secret Manager -->
+    <mxCell id="secretmgr" value="Secret Manager&#xa;(APP_DOTENV)"
+      style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#4285F4;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=4;shape=mxgraph.gcp2.secret_manager;"
+      vertex="1" parent="1">
+      <mxGeometry x="950" y="540" width="60" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Security / IAM section -->
+    <mxCell id="sec_box" value="Security / IAM"
+      style="rounded=1;dashed=1;strokeColor=#c62828;fillColor=#ffebee;strokeWidth=2;verticalAlign=top;align=left;spacingLeft=10;fontSize=11;fontStyle=1;fontColor=#b71c1c;arcSize=3;"
+      vertex="1" parent="1">
+      <mxGeometry x="880" y="800" width="200" height="120" as="geometry" />
+    </mxCell>
+
+    <!-- Service Account -->
+    <mxCell id="service_account" value="Service Account&#xa;(receipt-scanner-runner)"
+      style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#EA4335;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=4;shape=mxgraph.gcp2.service_accounts;"
+      vertex="1" parent="1">
+      <mxGeometry x="950" y="815" width="60" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- ===== External Services (outside GCP) ===== -->
+
+    <!-- User -->
+    <mxCell id="user" value="ユーザー"
+      style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#4285F4;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=4;shape=mxgraph.gcp2.user;"
+      vertex="1" parent="1">
+      <mxGeometry x="40" y="445" width="60" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Cloudflare Access -->
+    <mxCell id="cloudflare" value="Cloudflare Access&#xa;(Zero Trust)"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F38020;strokeColor=#e8700a;fontColor=#ffffff;fontSize=11;fontStyle=1;"
+      vertex="1" parent="1">
+      <mxGeometry x="140" y="448" width="120" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- LINE -->
+    <mxCell id="line" value="LINE&#xa;(リマインダー通知)"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#00B900;strokeColor=#007700;fontColor=#ffffff;fontSize=11;fontStyle=1;"
+      vertex="1" parent="1">
+      <mxGeometry x="535" y="1010" width="130" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- ===== Connectors ===== -->
+
+    <!-- User → Cloudflare -->
+    <mxCell id="e_user_cf" value="HTTPS"
+      style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;"
+      edge="1" source="user" target="cloudflare" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Cloudflare → Cloud Run -->
+    <mxCell id="e_cf_run" value="HTTPS&#xa;JWT検証"
+      style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;"
+      edge="1" source="cloudflare" target="cloudrun" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Cloud Build → Artifact Registry -->
+    <mxCell id="e_build_reg" value="Push&#xa;Docker image"
+      style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;"
+      edge="1" source="cloudbuild" target="artifact_registry" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Artifact Registry → Cloud Run (Deploy) -->
+    <mxCell id="e_reg_run" value="Deploy&#xa;(gcloud run deploy)"
+      style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;"
+      edge="1" source="artifact_registry" target="cloudrun" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Cloud Run ↔ Firestore (PII: LINE UID in reminders) -->
+    <mxCell id="e_run_fs" value="🔒 PII(reminders: LINE UID)&#xa;Read / Write"
+      style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;strokeColor=#c62828;fontColor=#c62828;fontStyle=1;endArrow=block;startArrow=block;startFill=1;endFill=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;"
+      edge="1" source="cloudrun" target="firestore" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Cloud Run → Vertex AI (receipt image OCR) -->
+    <mxCell id="e_run_vai" value="HTTPS&#xa;レシート画像"
+      style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;"
+      edge="1" source="cloudrun" target="vertexai" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Secret Manager → Cloud Run (mount .env at startup) -->
+    <mxCell id="e_sm_run" value="Mount .env&#xa;(起動時)"
+      style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.7;entryDx=0;entryDy=0;"
+      edge="1" source="secretmgr" target="cloudrun" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Cloud Scheduler → Cloud Run (OIDC, check-reminders) -->
+    <mxCell id="e_sched_run" value="POST /check-reminders&#xa;(OIDC Token)"
+      style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.7;entryDx=0;entryDy=0;"
+      edge="1" source="scheduler" target="cloudrun" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Cloud Run → LINE (reminder notifications) -->
+    <mxCell id="e_run_line" value="HTTPS&#xa;リマインダー通知"
+      style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;"
+      edge="1" source="cloudrun" target="line" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Service Account ← Cloud Run (runs as) -->
+    <mxCell id="e_sa_run" value="実行ID"
+      style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;dashed=1;strokeColor=#999999;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=1;entryDx=0;entryDy=0;"
+      edge="1" source="service_account" target="cloudrun" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- ===== Legend ===== -->
+    <mxCell id="legend" value="凡例"
+      style="swimlane;startSize=24;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;fontSize=12;fontColor=#333333;"
+      vertex="1" parent="1">
+      <mxGeometry x="1430" y="940" width="210" height="175" as="geometry" />
+    </mxCell>
+    <mxCell id="legend_pii" value="🔒 PII : 個人情報を含むフロー"
+      style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#c62828;"
+      vertex="1" parent="1">
+      <mxGeometry x="1440" y="972" width="195" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="legend_cicd" value="■ CI/CD Pipeline"
+      style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#5d4037;"
+      vertex="1" parent="1">
+      <mxGeometry x="1440" y="996" width="195" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="legend_app" value="■ Application Layer"
+      style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#0d47a1;"
+      vertex="1" parent="1">
+      <mxGeometry x="1440" y="1020" width="195" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="legend_data" value="■ Data Services"
+      style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#1b5e20;"
+      vertex="1" parent="1">
+      <mxGeometry x="1440" y="1044" width="195" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="legend_sec" value="■ Security / IAM"
+      style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#b71c1c;"
+      vertex="1" parent="1">
+      <mxGeometry x="1440" y="1068" width="195" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="legend_date" value="作成日: 2026-04-18"
+      style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=10;fontColor=#666666;"
+      vertex="1" parent="1">
+      <mxGeometry x="1440" y="1092" width="195" height="20" as="geometry" />
+    </mxCell>
+
+  </root>
+</mxGraphModel>

@@ -13,6 +13,10 @@ node_modules
 logs
 *.log
 
+# Claude Code
+.claude/settings.json
+.claude/settings.local.json
+
 # Misc
 .DS_Store
 .fleet
